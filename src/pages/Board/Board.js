@@ -1,5 +1,6 @@
 import Lane from '../../components/Lane/Lane';
-import {useState, useEffect} from  'react';
+import { useState, useEffect } from 'react';
+import useDataFetching from '../../hooks/useDataFetching';
 import './Board.css';
 
 const lanes = [
@@ -9,45 +10,55 @@ const lanes = [
   { id: 4, title: 'Done' },
 ];
 
+function onDragStart(e, id){
+  e.dataTransfer.setData('id', id);
+}
+
+function onDragOver(e){
+  e.preventDefault();
+}
+
 function Board() {
 
-  const [loading , setLoading] = useState(true);
-  const [tasks , setTask] = useState([]);
-  const [error , setError] = useState('');
+  //using the custom hook to fetch data
+  const [ loading , error , data ] = useDataFetching(`https://my-json-server.typicode.com/PacktPublishing/React-Projects-Second-Edition/tasks`);
 
+  const [ tasks , setTasks ] = useState([]);
 
   useEffect(()=>{
 
-    async function fetchData(){
+      setTasks(data);
+  }, [data]);
 
-      try {
 
-        const data = await fetch(`https://my-json-server.typicode.com/PacktPublishing/React-Projects-Second-Edition/tasks`);
+  function onDrop(e, laneId){
 
-      const result = await data.json();
+    const id = e.dataTransfer.getData('id');
 
-      console.log(result);
-      if(result){
-        setTask(result);
-        setLoading(false);
+    const updateTasks = tasks.filter((task)=>{
+      if(task.id.toString() === id){
+        task.lane = laneId;
       }
-        
-      } catch (error) {
-        setError(error.message);
-      }
-    }
 
-    fetchData();
-  }, []);
+      return task
+    });
+
+    setTasks(updateTasks);
+  }
+  
 
   return (
     <div className='Board-wrapper'>
       {lanes.map((lane) => (
         <Lane key={lane.id} title={lane.title} 
             loading={loading}  error = {error} 
+            laneId={lane.id} 
             tasks = {tasks.filter((task)=>
               task.lane === lane.id
             )}
+            onDragStart={onDragStart}
+            onDragOver = {onDragOver}
+            onDrop={onDrop}
         />
       ))}
     </div>
