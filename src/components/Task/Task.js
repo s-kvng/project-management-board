@@ -11,17 +11,20 @@ function Task({id, title , body , onDragStart}){
         border-radius: 20px;
         margin: 0% 5% 5% 5%;
     
+    `;
+
+    const Title = styled.h3`
     
-    h3 {
         width: 100%;
         margin: 0;
-    }
-    
     `;
+
+    
+    
 
     return (
         <TAskWrapper draggable onDragStart={(e)=> onDragStart(e , id)}>
-            <h3>{title}</h3>
+            <Title>{title}</Title>
             <p>{body}</p>
         </TAskWrapper>
     )

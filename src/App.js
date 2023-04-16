@@ -1,16 +1,40 @@
 
-import './App.css';
 import Board from './pages/Board/Board';
 import Header from './components/Header/Header';
 import Backlog from './pages/Backlog/Backlog';
+import styled , {createGlobalStyle} from 'styled-components';
 
 function App() {
+
+  const GlobalStyle = createGlobalStyle`
+  
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+      'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+      sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  `;
+  
+
+  const AppWrapper = styled.div`
+  
+  text-align: center;
+  `;
+
   return (
-    <div className='App'>
+    <>
+    <GlobalStyle />
+      <AppWrapper>
       <Header />
       <Board />
       <Backlog />
-    </div>
+    </AppWrapper>
+    </>
+    
   );
 }
 
