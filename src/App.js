@@ -3,6 +3,8 @@ import Board from './pages/Board/Board';
 import Header from './components/Header/Header';
 import Backlog from './pages/Backlog/Backlog';
 import styled , {createGlobalStyle} from 'styled-components';
+import { BrowserRouter ,Routes , Route} from 'react-router-dom';
+import Link from './components/Links/Link';
 
 function App() {
 
@@ -27,12 +29,25 @@ function App() {
 
   return (
     <>
+    
     <GlobalStyle />
-      <AppWrapper>
+
+    <BrowserRouter >
+    <AppWrapper>
       <Header />
-      <Board />
-      <Backlog />
+      <Link />
+
+      <Routes>
+
+        <Route path="/" element={<Board />} />
+      
+        <Route path="/backlog" element={<Backlog />} />
+
+      </Routes>
+      
     </AppWrapper>
+    </BrowserRouter>
+      
     </>
     
   );
