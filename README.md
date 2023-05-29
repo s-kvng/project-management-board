@@ -3,8 +3,7 @@
 >  **Project-management-board** is a simple webapp that simulates a task process such as Todo , In Progress , Review ,Done
 >  The application will feature a dynamic drag and drop interface that uses the HTML5 Drag and Drop API.
 
-
-![](https://img.shields.io/badge/-React-05122A?style=flat&logo=react&logoColor=092E20)
+![react](https://img.shields.io/badge/-React-05122A?style=flat&logo=react)
 
 
 ## Built With
